@@ -1,0 +1,6 @@
+use_frameworks!
+target 'NewsAPIClient_Tests' do
+  pod 'NewsAPIClient', :path => '../'
+  
+  
+end
