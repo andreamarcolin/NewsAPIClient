@@ -1,0 +1,16 @@
+PODS:
+  - NewsAPIClient (0.1.0)
+
+DEPENDENCIES:
+  - NewsAPIClient (from `../`)
+
+EXTERNAL SOURCES:
+  NewsAPIClient:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NewsAPIClient: 6f825f93ff9db9ad4f76259f5d6d3450e62d56ed
+
+PODFILE CHECKSUM: fa4017547c1cfc6c128f2a2a34324651935935f7
+
+COCOAPODS: 1.1.1
