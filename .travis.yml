@@ -10,5 +10,5 @@ language: objective-c
 # - gem install cocoapods # Since Travis is not always on latest version
 # - pod install --project-directory=Example
 script:
-- set -o pipefail && xcodebuild test -workspace Example/NewsAPIClient.xcworkspace -scheme NewsAPIClient-Example -sdk iphonesimulator -destination 'id:E40727B3-41FB-4D6E-B4CB-BFA87109EB12' | xcpretty
+- set -o pipefail && xcodebuild test -workspace Example/NewsAPIClient.xcworkspace -scheme NewsAPIClient-Example -sdk iphonesimulator -destination 'id=E40727B3-41FB-4D6E-B4CB-BFA87109EB12' | xcpretty
 - pod lib lint
