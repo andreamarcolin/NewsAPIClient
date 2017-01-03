@@ -21,7 +21,7 @@ public extension NewsAPIClient {
         public let language: String
         public let country: String
         public let logoUrls: [String : String]
-        public let availableSortBys: [String]
+        public let availableSortBys: [String : String]
         
         /// The init method for Source
         ///
@@ -47,7 +47,13 @@ public extension NewsAPIClient {
             self.language = language
             self.country = country
             self.logoUrls = logoUrls
-            self.availableSortBys = availableSortBys
+            
+            // Build a dictionary from array values with same key as value, so we can take advantage of access by String
+            var parsedAvailableSortBys = [String : String]()
+            for sortBy in availableSortBys {
+                parsedAvailableSortBys[sortBy] = sortBy
+            }
+            self.availableSortBys = parsedAvailableSortBys
         }
     } 
 }

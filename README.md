@@ -43,7 +43,7 @@ client.getSources { (sources, error) in
 }
 ```
 
-Optionally filter the sources by category, language and country
+Optionally filter the sources by category, language or country
 
 ```swift
 client.getSources(category: NewsAPIClient.Source.Category.business,
@@ -72,17 +72,8 @@ client.getSources { (sources, error) in
         return
     }
 
-    let source = sources[0]
-    let sortBy : NewsAPIClient.Source.SortBy?
-
-    if let index = source.availableSortBys.index(of: NewsAPIClient.Source.SortBy.latest) {
-        sortBy = source.availableSortBys[index]
-    } else {
-        sortBy = nil
-    }
-
-    client.getArticles(source: source,
-                       sortBy: sortBy)
+    client.getArticles(sourceId: sources[0].id,
+                       sortBy: sources[0].availableSortBys["latest"]) // if "latest" is not available for this source, defaults to "top" 
     { (articles, error) in
 
         guard let articles = articles else {

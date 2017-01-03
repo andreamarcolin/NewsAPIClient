@@ -46,7 +46,7 @@ class Tests: XCTestCase {
         XCTAssertEqual(source.logoUrls, ["small" : "http://i.newsapi.org/bbc-news-s.png",
                                          "medium" : "http://i.newsapi.org/bbc-news-m.png",
                                          "large" : "http://i.newsapi.org/bbc-news-l.png"])
-        XCTAssertEqual(source.availableSortBys, ["top"])
+        XCTAssertEqual(source.availableSortBys, ["top" : "top"])
     }
     
     func testArticleInitialization() {
@@ -129,7 +129,7 @@ class Tests: XCTestCase {
             }
         }
     }
-    
+ 
     func testGetArticles() {
         let apiKey = "5f91ae4f530f453b88c331b7a33a331e"
         let client = NewsAPIClient(apiKey: apiKey)
@@ -139,7 +139,9 @@ class Tests: XCTestCase {
                 XCTAssertNil(error)
                 XCTAssertNotNil(sources)
                 
-                client.getArticles(sourceId: sources![0].id) { (articles, error) in
+                client.getArticles(sourceId: sources![0].id,
+                                   sortBy: sources![0].availableSortBys["latest"])
+                { (articles, error) in
                     XCTAssertNil(error)
                     XCTAssertNotNil(articles)
                 }
@@ -147,4 +149,5 @@ class Tests: XCTestCase {
         }
     }
     */
+    
 }
