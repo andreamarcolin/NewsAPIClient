@@ -27,7 +27,8 @@ First, create a client with your NewsAPI.org API Key
 let client = NewsAPIClient(apiKey: "<YOUR_API_KEY>")
 ```
 
-The client provides two methods to interact with the two API endpoints:
+The client provides two methods to interact with the two API endpoints: "/sources" and "/articles".
+N.B. all operations are performed on the main thread. It is highly reccomended to dispatch each request to a background queue, and pass a completion handler which eventually performs UI updates on the main thread, accordingly with your needs. A general example can be found at http://stackoverflow.com/questions/24056205/how-to-use-background-thread-in-swift
 
 ### Sources
 
@@ -58,12 +59,11 @@ client.getSources(category: NewsAPIClient.Source.Category.business,
 
     print(sources)
 }
-
 ```
 
 ### Articles
 
-Normally, chain the sources request with an articles request to get articles from a specific source (sortBy is optional)
+Normally, chain the sources request with a request to the "/sources" endpoint to get articles from a specific source (sortBy is optional)
 
 ```swift
 client.getSources { (sources, error) in
@@ -99,14 +99,6 @@ client.getArticles(source: source) { (articles, error) in
     print(articles)
 }
 ```
-
-## Release Notes
-
-Version 0.2.0
-* Simplified Article and Source's structure for easier integration
-
-Version 0.1.0
-* Initial release
 
 ## Author
 
