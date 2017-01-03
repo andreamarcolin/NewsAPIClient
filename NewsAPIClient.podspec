@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'NewsAPIClient'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'NewsAPICLient is a REST Client for NewsAPI.org'
   s.description      = <<-DESC
 NewsAPIClient is a REST Client, written in Swift 3.0, which interacts with NewsAPI (https://newsapi.org) to retrieve headlines currently published on a range of news sources and blogs

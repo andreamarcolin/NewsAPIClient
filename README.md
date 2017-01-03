@@ -47,9 +47,9 @@ client.getSources { (sources, error) in
 Optionally filter the sources by category, language or country
 
 ```swift
-client.getSources(category: NewsAPIClient.Source.Category.business,
-                  language: NewsAPIClient.Source.Language.english,
-                  country: NewsAPIClient.Source.Country.unitedStates)
+client.getSources(category: "business",
+                  language: "en",
+                  country: "gb")
 { (sources, error) in
 
     guard let sources = sources else {

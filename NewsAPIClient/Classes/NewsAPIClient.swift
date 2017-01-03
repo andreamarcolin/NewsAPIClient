@@ -21,11 +21,11 @@ public class NewsAPIClient {
     
     // MARK: - NewsAPI.org API methods
     
-    /// Gets all articles for a Source asynchronously, optionally ordered by the choosen criteria
+    /// Gets all articles for a NewsAPI.org source, optionally ordered by a given criteria
     ///
     /// - Parameters:
-    ///   - source: the Source to get all Articles from
-    ///   - sortBy: an optional criteria to order the articles by. Attention: not every Source can be ordered by all the possible criterias, check the https://newsapi.org for further details 
+    ///   - source: the source id to get all Articles from
+    ///   - sortBy: an optional criteria to order the articles by. Since not every Source can be ordered by all the possible criterias, choose between those which are stored in availableSortBys property of the source. Check https://newsapi.org for further details.
     ///   - completionHandler: a closure to be executed after the method completes, to which an array of Article structs (or an error) is passed
     public func getArticles(sourceId: String, sortBy: String? = "top", completionHandler: @escaping ([Article]?, Error?) -> Void) {
         
@@ -101,12 +101,12 @@ public class NewsAPIClient {
         }
     }
     
-    /// Gets all news sources supported by NewsAPI.org asynchronously
+    /// Gets all news sources supported by NewsAPI.org
     ///
     /// - Parameters:
-    ///   - category: the category you would like to get sources for (optional)
-    ///   - language: the language you would like to get sources for (optional)
-    ///   - country: the country you would like to get sources for (optional)
+    ///   - category: the category you would like to get sources for (optional, check supported categories on https://newsapi.org)
+    ///   - language: the language you would like to get sources for (optional, check supported languages on https://newsapi.org)
+    ///   - country: the country you would like to get sources for (optional, check supported countries on https://newsapi.org)
     ///   - completionHandler: a closure to be executed after the method completes, to which an array of Source structs (or an error) is passed
     public func getSources(category: String? = nil, language: String? = nil, country: String? = nil, completionHandler: @escaping ([Source]?, Error?) -> Void) {
         
