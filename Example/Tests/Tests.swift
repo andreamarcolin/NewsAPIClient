@@ -138,7 +138,7 @@ class Tests: XCTestCase {
                 
                 client.getArticles(sourceId: sources![0].id) { (articles, error) in
                     XCTAssertNil(error)
-                    XCTAssertNotNil(sources)
+                    XCTAssertNotNil(articles)
                 }
             }
         }
