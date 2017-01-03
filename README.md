@@ -111,6 +111,9 @@ client.getArticles(source: source) { (articles, error) in
 
 ## Release Notes
 
+Version 0.2.0
+* Simplified Article and Source's structure for easier integration
+
 Version 0.1.0
 * Initial release
 
