@@ -169,24 +169,17 @@ public class NewsAPIClient {
                 }
                 
                 // Initialize a Source object with this source's data
-                do {
-                    let parsedSource = try Source(
-                        id: id,
-                        name: name,
-                        description: description,
-                        url: url,
-                        category: category,
-                        language: language,
-                        country: country,
-                        logoUrls: logoUrls,
-                        availableSortBys: availableSortBys
-                    )
-                    parsedSources.append(parsedSource)
-                
-                } catch let error {
-                    completionHandler(nil, error)
-                    return
-                }
+                parsedSources.append(
+                    Source(id: id,
+                           name: name,
+                           description: description,
+                           url: url,
+                           category: category,
+                           language: language,
+                           country: country,
+                           logoUrls: logoUrls,
+                           availableSortBys: availableSortBys)
+                )
             }
             
             // Everything went good, return the parsed sources with no error
