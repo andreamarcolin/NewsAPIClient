@@ -27,11 +27,11 @@ public class NewsAPIClient {
     ///   - source: the Source to get all Articles from
     ///   - sortBy: an optional criteria to order the articles by. Attention: not every Source can be ordered by all the possible criterias, check the https://newsapi.org for further details 
     ///   - completionHandler: a closure to be executed after the method completes, to which an array of Article structs (or an error) is passed
-    public func getArticles(source: Source, sortBy: Source.SortBy? = Source.SortBy.top, completionHandler: @escaping ([Article]?, Error?) -> Void) {
+    public func getArticles(sourceId: String, sortBy: String? = "top", completionHandler: @escaping ([Article]?, Error?) -> Void) {
         
         // Build a dictionary of parameters for the request
-        let parameters = [Constants.JSONKeys.source : source.id,
-                          Constants.JSONKeys.sortBy : sortBy!.rawValue,
+        let parameters = [Constants.JSONKeys.source : sourceId,
+                          Constants.JSONKeys.sortBy : sortBy!,
                           Constants.JSONKeys.apiKey : apiKey]
         
         taskForGetMethod(endpoint: Constants.Endpoints.articles, parameters: parameters) { (result, error) in
@@ -44,6 +44,12 @@ public class NewsAPIClient {
             // Check if the status is "ok"
             guard let status = result![Constants.JSONKeys.status] as? String, status == Constants.Status.ok else {
                 completionHandler(nil, ResponseError.apiError(message: result![Constants.JSONKeys.message] as? String))
+                return
+            }
+            
+            // Check if Source Id is present
+            guard let sourceId = result![Constants.JSONKeys.source] as? String else {
+                completionHandler(nil, ResponseError.noSource)
                 return
             }
             
@@ -76,7 +82,8 @@ public class NewsAPIClient {
                 
                 // Initialize a Source object with this source's data
                 do {
-                    let parsedArticle = try Article(author: author,
+                    let parsedArticle = try Article(sourceId: sourceId,
+                                                    author: author,
                                                     title: title,
                                                     description: description,
                                                     url: url,
@@ -101,19 +108,19 @@ public class NewsAPIClient {
     ///   - language: the language you would like to get sources for (optional)
     ///   - country: the country you would like to get sources for (optional)
     ///   - completionHandler: a closure to be executed after the method completes, to which an array of Source structs (or an error) is passed
-    public func getSources(category: Source.Category? = nil, language: Source.Language? = nil, country: Source.Country? = nil, completionHandler: @escaping ([Source]?, Error?) -> Void) {
+    public func getSources(category: String? = nil, language: String? = nil, country: String? = nil, completionHandler: @escaping ([Source]?, Error?) -> Void) {
         
         // Build a dictionary of parameters for the request
         var parameters = [String : String]()
         
         if let category = category {
-            parameters[Constants.JSONKeys.category] = category.rawValue
+            parameters[Constants.JSONKeys.category] = category
         }
         if let language = language {
-            parameters[Constants.JSONKeys.language] = language.rawValue
+            parameters[Constants.JSONKeys.language] = language
         }
         if let country = country {
-            parameters[Constants.JSONKeys.country] = country.rawValue
+            parameters[Constants.JSONKeys.country] = country
         }
         
         taskForGetMethod(endpoint: Constants.Endpoints.sources) { (result, error) in
@@ -289,6 +296,7 @@ public class NewsAPIClient {
     /// Possible errors which can be reported by API's response
     ///
     /// - apiError: when the API reports an error due to incorrect parameters or other internal errors
+    /// - noSource: when the API does not specify the source id for the provided articles
     /// - noSources: when the API does not include a "sources" object in the response after a request to the Sources endpoint
     /// - noArticles: when the API does not include an "articles" object in the response after a request to the Articles endpoint
     /// - emptySources: when the API responds with an empty array of Sources
@@ -297,6 +305,7 @@ public class NewsAPIClient {
     /// - wrongArticleFormat: when the API provides data in wrong format for Articles
     public enum ResponseError: Error {
         case apiError(message: String?)
+        case noSource
         case noSources
         case noArticles
         case emptySources

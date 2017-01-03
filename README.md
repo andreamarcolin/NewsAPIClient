@@ -61,7 +61,7 @@ client.getSources(category: NewsAPIClient.Source.Category.business,
 
 ```
 
-### Articles ("/articles")
+### Articles
 
 Normally, chain the sources request with an articles request to get articles from a specific source (sortBy is optional)
 
