@@ -45,7 +45,7 @@ extension NewsAPIClient {
             static let category = "category"
             static let language = "language"
             static let country = "country"
-            static let urlToLogos = "urlToLogos"
+            static let urlToLogos = "urlsToLogos"
             static let sortBysAvailable = "sortBysAvailable"
             
             // Common JSON keys

@@ -1,3 +1,6 @@
+## 0.2.2 (2017-02-11)
+* Bug fix on sources endpoint
+
 ## 0.2.1 (2017-01-03)
 
 * Updated README and docs
