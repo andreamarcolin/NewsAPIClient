@@ -68,16 +68,20 @@ public class NewsAPIClient {
             // Build the result
             var parsedArticles = [Article]()
             for article in articles {
-                // Check if everything is present and in the correct format
-                guard let author = article[Constants.JSONKeys.author] as? String,
-                    let title = article[Constants.JSONKeys.title] as? String,
+                
+                // Allow empty Author or urlToImage (non-essential fields)
+                // This is done because of the high number of articles not containing an author
+                let author: String = (article[Constants.JSONKeys.author] as? String) ?? ""
+                let urlToImage: String = (article[Constants.JSONKeys.author] as? String) ?? ""
+                
+                // Check if everything else is present and in the correct format
+                guard let title = article[Constants.JSONKeys.title] as? String,
                     let description = article[Constants.JSONKeys.description] as? String,
                     let url = article[Constants.JSONKeys.url] as? String,
-                    let urlToImage = article[Constants.JSONKeys.urlToImage] as? String,
-                    let publishedAt = article[Constants.JSONKeys.publishedAt] as? String
-                    else {
-                        completionHandler(nil, ResponseError.wrongArticleFormat)
-                        return
+                    let publishedAt = article[Constants.JSONKeys.publishedAt] as? String else {
+                    
+                    // If one of these fields is not a String, skip the article
+                    break
                 }
                 
                 // Initialize a Source object with this source's data
@@ -304,6 +308,5 @@ public class NewsAPIClient {
         case emptySources
         case emptyArticles
         case wrongSourceFormat
-        case wrongArticleFormat
     }
 }
