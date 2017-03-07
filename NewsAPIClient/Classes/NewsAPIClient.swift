@@ -72,7 +72,7 @@ public class NewsAPIClient {
                 // Allow empty Author or urlToImage (non-essential fields)
                 // This is done because of the high number of articles not containing an author
                 let author: String = (article[Constants.JSONKeys.author] as? String) ?? ""
-                let urlToImage: String = (article[Constants.JSONKeys.author] as? String) ?? ""
+                let urlToImage: String = (article[Constants.JSONKeys.urlToImage] as? String) ?? ""
                 
                 // Check if everything else is present and in the correct format
                 guard let title = article[Constants.JSONKeys.title] as? String,

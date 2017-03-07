@@ -1,3 +1,6 @@
+## 0.2.4 (2017-03-08)
+* Fixed typo introduced in previous release
+
 ## 0.2.3 (2017-03-07)
 * Bug fixes on articles endpoint
 
