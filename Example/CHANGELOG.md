@@ -1,3 +1,6 @@
+## 0.2.3 (2017-03-07)
+* Bug fixes on articles endpoint
+
 ## 0.2.2 (2017-02-11)
 * Bug fix on sources endpoint
 

@@ -35,10 +35,14 @@ public extension NewsAPIClient {
             
             // Parse the publishedAt date as Date, guarding for possible unrecognized values (if it is the case, throw an error and exit early)
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = Constants.Utilities.dateFormat
             
-            guard let parsedPublishedAt = dateFormatter.date(from: publishedAt) else {
-                throw InitializationError.invalidPublishedAtDate(invalidPublshedAtDate: publishedAt)
+            // Workaround for source "National Geographic" which use a different publishedAt date format 
+            dateFormatter.dateFormat = Constants.Utilities.dateFormatPrimary
+            if dateFormatter.date(from: publishedAt) == nil {
+                dateFormatter.dateFormat = Constants.Utilities.dateFormatSecondary
+                if dateFormatter.date(from: publishedAt) == nil {
+                    throw InitializationError.invalidPublishedAtDate(invalidPublshedAtDate: publishedAt)
+                }
             }
             
             // Assign the parsed objects to struct properties
@@ -48,8 +52,7 @@ public extension NewsAPIClient {
             self.description = description
             self.url = url
             self.urlToImage = urlToImage
-            self.publishedAt = parsedPublishedAt
-        
+            self.publishedAt = dateFormatter.date(from: publishedAt)!
         }
         
         /// The possible errors which can arise on Article struct initilization
