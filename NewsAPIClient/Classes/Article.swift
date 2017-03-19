@@ -48,7 +48,7 @@ public extension NewsAPIClient {
                     self.description = description
                     self.url = url
                     self.urlToImage = urlToImage
-                    self.publishedAt = dateFormatter.date(from: publishedAt)!
+                    self.publishedAt = date
                     return
                 }
             }
