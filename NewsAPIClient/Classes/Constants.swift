@@ -63,8 +63,7 @@ extension NewsAPIClient {
         }
         
         struct Utilities {
-            static let dateFormatPrimary = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            static let dateFormatSecondary = "yyyy-MM-dd'T'HH:mm:ss'+'hh:mm"
+            static let dateFormats = ["yyyy-MM-dd'T'HH:mm:ss'Z'", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd'T'HH:mm:ss'+'hh:mm"]
         }
     }
 }

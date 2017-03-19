@@ -1,3 +1,6 @@
+## 0.2.5 (2017-03-19)
+* Added support for etherogeneous date formats for article's "published at" date
+
 ## 0.2.4 (2017-03-08)
 * Fixed typo introduced in previous release
 

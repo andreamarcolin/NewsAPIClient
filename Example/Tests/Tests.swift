@@ -75,7 +75,7 @@ class Tests: XCTestCase {
             XCTAssertEqual(article.urlToImage, "https://cdn3.tnwcdn.com/wp-content/blogs.dir/1/files/2016/12/Banner-Tech5.png")
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = NewsAPIClient.Constants.Utilities.dateFormatPrimary
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
             XCTAssertEqual(article.publishedAt, dateFormatter.date(from: "2017-01-03T08:49:12Z"))
             
         } catch {

@@ -36,30 +36,31 @@ public extension NewsAPIClient {
             // Parse the publishedAt date as Date, guarding for possible unrecognized values (if it is the case, throw an error and exit early)
             let dateFormatter = DateFormatter()
             
-            // Workaround for source "National Geographic" which use a different publishedAt date format 
-            dateFormatter.dateFormat = Constants.Utilities.dateFormatPrimary
-            if dateFormatter.date(from: publishedAt) == nil {
-                dateFormatter.dateFormat = Constants.Utilities.dateFormatSecondary
-                if dateFormatter.date(from: publishedAt) == nil {
-                    throw InitializationError.invalidPublishedAtDate(invalidPublshedAtDate: publishedAt)
+            // Try with different date formats while the suitable one is found
+            for format in Constants.Utilities.dateFormats {
+                dateFormatter.dateFormat = format
+                if let date = dateFormatter.date(from: publishedAt) {
+                    // Found a suitable date format
+                    // Assign the parsed objects to struct properties
+                    self.sourceId = sourceId
+                    self.author = author
+                    self.title = title
+                    self.description = description
+                    self.url = url
+                    self.urlToImage = urlToImage
+                    self.publishedAt = dateFormatter.date(from: publishedAt)!
+                    return
                 }
             }
-            
-            // Assign the parsed objects to struct properties
-            self.sourceId = sourceId
-            self.author = author
-            self.title = title
-            self.description = description
-            self.url = url
-            self.urlToImage = urlToImage
-            self.publishedAt = dateFormatter.date(from: publishedAt)!
+            // If we came here, no suitable date format was found, return an errors
+            throw InitializationError.invalidPublishedAtDate(invalidPublishedAtDate: publishedAt)
         }
         
         /// The possible errors which can arise on Article struct initilization
         ///
         /// - invalidPublishedAtDate: when a date is not in the correct format (cannot be parsed from String to Date with the format "yyyy-MM-dd'T'HH:mm:ss'Z'")
         public enum InitializationError: Error {
-            case invalidPublishedAtDate(invalidPublshedAtDate: String)
+            case invalidPublishedAtDate(invalidPublishedAtDate: String)
         }
     }
 }
