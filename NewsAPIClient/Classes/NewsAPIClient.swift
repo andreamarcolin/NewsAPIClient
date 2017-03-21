@@ -37,7 +37,7 @@ public class NewsAPIClient {
         taskForGetMethod(endpoint: Constants.Endpoints.articles, parameters: parameters) { (result, error) in
             
             guard (error == nil) else {
-                completionHandler(nil, error)
+                completionHandler(nil, ResponseError.networkError(message: error!.localizedDescription))
                 return
             }
             
@@ -131,7 +131,7 @@ public class NewsAPIClient {
             
             // If there was an error on the URL session task, pass the error through completion handler
             guard (error == nil) else {
-                completionHandler(nil, error)
+                completionHandler(nil, ResponseError.networkError(message: error!.localizedDescription))
                 return
             }
             
@@ -301,6 +301,7 @@ public class NewsAPIClient {
     /// - wrongSourceFormat: when the API provides data in wrong format for Sources
     /// - wrongArticleFormat: when the API provides data in wrong format for Articles
     public enum ResponseError: Error {
+        case networkError(message: String?)
         case apiError(message: String?)
         case noSource
         case noSources
